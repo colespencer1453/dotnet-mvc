@@ -1,41 +1,42 @@
 {
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
-            "command": "dotnet",
-            "type": "process",
+            "label": "1. Verify database schema and data",
+            "type": "shell",
+            "command": "code",
             "args": [
-                "build",
-                "${workspaceFolder}/dotnet-mvc.sln",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+                "--goto",
+                "${workspaceFolder}/scripts/verifyDatabase.sql"
             ],
-            "problemMatcher": "$msCompile"
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
         },
         {
-            "label": "publish",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-                "${workspaceFolder}/dotnet-mvc.sln",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary;ForceNoAlign"
-            ],
-            "problemMatcher": "$msCompile"
+            "label": "2. Build SQL Database project",
+            "type": "shell",
+            "command": "dotnet build",
+            "options": {
+                "cwd": "${workspaceFolder}/database/Library"
+            }
         },
         {
-            "label": "watch",
-            "command": "dotnet",
-            "type": "process",
+            "label": "3. Publish SQL Database project",
+            "type": "shell",
+            "command": "bash",
             "args": [
-                "watch",
-                "run",
-                "--project",
-                "${workspaceFolder}/dotnet-mvc.sln"
-            ],
-            "problemMatcher": "$msCompile"
+                ".devcontainer/sql/postCreateCommand.sh",
+                "database/Library/bin/Debug"
+            ]
+        },
+        {
+            "label": "4. Trust .NET HTTPS certificate",
+            "type": "shell",
+            "command": "dotnet dev-certs https --trust"
         }
     ]
 }
