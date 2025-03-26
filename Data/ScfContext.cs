@@ -7,13 +7,14 @@ using MvcMovie.Models;
 
 namespace MvcMovie.Data
 {
-    public class MvcMovieContext : DbContext
+    public class ScfContext : DbContext
     {
-        public MvcMovieContext(DbContextOptions<MvcMovieContext> options)
+        public ScfContext(DbContextOptions<ScfContext> options)
             : base(options)
         {
         }
 
-        public DbSet<Movie> Movie { get; set; } = default!;
+        public DbSet<Case> Cases { get; set; } = default!;
+        public DbSet<Visit> Visits { get; set; } = default!;
     }
 }

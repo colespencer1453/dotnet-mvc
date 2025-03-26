@@ -11,6 +11,6 @@ public class Case
     public required string FirstName { get; set; }
     public required string Citizenship { get; set; }
 
-    [Display(Name = "Date of Birth"), DataType(DataType.Date)]
+    [Display(Name = "Date of Birth"), DataType(DataType.DateTime)]
     public DateTime DateOfBirth { get; set; }
 }

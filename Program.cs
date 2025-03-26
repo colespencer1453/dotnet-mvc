@@ -3,8 +3,8 @@ using MvcMovie.Data;
 using MvcMovie.Models;
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<MvcMovieContext>(options =>
-    options.UseAzureSql(builder.Configuration.GetConnectionString("MvcMovieContext")));
+builder.Services.AddDbContext<ScfContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("MvcMovieContext")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -15,7 +15,7 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
-    SeedData.Initialize(services);
+    // SeedData.Initialize(services);
 }
 
 // Configure the HTTP request pipeline.
